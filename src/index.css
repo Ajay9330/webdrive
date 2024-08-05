@@ -4,10 +4,8 @@
 
 /* Sidebar */
 .navlinks{
-    @apply bg-white p-2 font-medium  px-4 rounded-r-full; 
-    .active{
-        @apply bg-blue-500;
-    }
+    @apply bg-white p-2 font-medium  px-4 rounded-r-full hover:bg-blue-200 transition-all duration-200; 
+    
 }
 .navlinks.active{
     @apply bg-blue-500 text-white;
