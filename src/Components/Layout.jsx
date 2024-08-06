@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SideBar } from './SideBar';
 import { Header } from './Header';
 import { Outlet } from 'react-router-dom';
+import { createPortal } from 'react-dom';
+import {Model} from './Model';
+import { useSelector } from 'react-redux';
+import { Search } from './Search';
 export const Layout=()=>{
+    const model=useSelector(state=>state.tools.isModelopen);
+    const isopen=useSelector(state=>state.tools.isSidebaropen);
+    useEffect(()=>{
+        
+    })
     return(
         <>  
         <Header/>   
             <div className='bg-white flex h-full  '>
-            <div className='w-44 h-[calc(100vh-56px)] bg-primary2'><SideBar /></div>
-            <div className='flex-1  h-[calc(100vh-56px)] bg-blue-500 text-white flex-col flex '>
-            <div className='h-10 bg-white flex p-1 gap-2 justify-around '>
-                <div className='bg-primary2 w-16 rounded-sm flex items-center justify-around border-gray-700 border-[1px]'>
-                    <button class="material-symbols-outlined text-black bg-blue-500 ">grid_view</button>
-                    <button class="material-symbols-outlined text-black ">view_list</button>
-                </div>
+            <div className={`absolute overflow-hidden md:static w-44 transition-all h-[calc(100vh-56px)] bg-primary2 ${!isopen && ' -translate-x-44 md:translate-x-0 md:w-12'}`}><SideBar /></div>
 
-                <div className=' w-full max-w-[800px] flex'>
-                    <input placeholder='Search' className='px-3 placeholder:text-indigo-950 bg-primary2 flex-1 rounded-l-3xl  focus:outline-1 focus:outline-blue-600  outline-gray-300 outline-1 outline ' type="text" name="" id="" />
-                    <button className='bg-primary3 w-10 flex items-center justify-center rounded-r-full active:bg-black ' ><span class="material-symbols-outlined">search</span></button>
-                </div>
-            </div>
-            <div className='bg-primary1 flex-1 text-white overflow-y-auto'>
+            <div className='flex-1  h-[calc(100vh-56px)] bg-blue-500 text-white flex-col flex '>
+                <Search/>
+            <div className='bg-primary1 flex-1 text-white '>
                 <Outlet/>
             </div>
-
+            {model && <Model><div className='w-full h-full bg-blue-100'>hi</div></Model>}
             </div>
         </div> 
         </>
