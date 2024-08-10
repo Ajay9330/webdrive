@@ -4,11 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Navigate, redirect, Route, Routes } from 'react-router-dom'
 import { Layout } from './Components/Layout'
-import  Codes  from './Components/Outletcomponents/Codes'
-import Files from './Components/Outletcomponents/Files'
-import Links from './Components/Outletcomponents/Links'
-import Images from './Components/Outletcomponents/Images'
-import Notes from './Components/Outletcomponents/Notes'
+import { CodePage } from './pages/CodePage'
+import { FilesPage } from './pages/FilesPage'
+import { LinkPage } from './pages/LinkPage'
+import { NotesPage } from './pages/NotesPage'
+import { ImagePage } from './pages/ImagePage'
 function App() {
 
   const [islogin,setlogin]=useState(true);
@@ -17,11 +17,11 @@ function App() {
     <Routes>
       {islogin && 
         <Route path='/' element={<Layout/>}>
-          <Route  path='codes' element={<Codes/>}/>
-          <Route path='files' element={<Files/>}/>
-          <Route path='links' element={<Links/>}/>
-          <Route path='notes' element={<Notes/>}/>
-          <Route path='images' element={<Images/>}/>
+          <Route  path='codes' element={<CodePage/>}/>
+          <Route path='files' element={<FilesPage/>}/>
+          <Route path='links' element={<LinkPage/>}/>
+          <Route path='notes' element={<NotesPage/>}/>
+          <Route path='images' element={<ImagePage/>}/>
         </Route>
       }
       <Route path='*' element={'<div>not found</div>'}/>
