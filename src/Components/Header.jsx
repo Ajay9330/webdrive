@@ -2,9 +2,10 @@ import React from 'react'
 import light from './../assets/sun-svg.svg'
 import menu from '../assets/menu_open.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSideBar } from '../appstore/reducers/accesblity'
+import { setMode, setSideBar, toggleMode } from '../appstore/reducers/accesblity'
 export const Header = () => {
     const dispach=useDispatch();
+    const theme=useSelector(state=>state.tools.mode);
     const isopen=useSelector(state=>state.tools.isSidebaropen);
   return (
     <div className=' sticky w-full top-0 bg-primary1 text-white flex justify-between px-3 items-center '>
@@ -17,12 +18,13 @@ export const Header = () => {
             </span>
         </div>
 
-        <div className='bg-white text-black  w-56 h-8 rounded-3xl px-3 justify-around flex items-center'>
-            <span className=' border-2 w-7 h-7 rounded-full text-center border-black'>
-            <span class="material-symbols-outlined">dark_mode</span>
+        <div className='bg-white text-black  w-56 h-8 rounded-3xl px-3 justify-around flex items-center' onClick={()=>dispach(toggleMode())}>
+            <span className=' border-2 w-7 h-7 rounded-full text-center border-gray-500 cursor-pointer select-none active:scale-[0.95] transition-all duration-75'>
+                {theme=="light"?<span class="material-symbols-outlined">dark_mode</span>
+                :<img src={light} alt="" srcset="" />}
             </span>
             <span className=' border-2 w-7 h-7 rounded-full text-center border-black'>
-                <img src={light} alt="" srcset="" />
+                
             </span>
         </div>
     </div>
