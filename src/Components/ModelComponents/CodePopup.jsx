@@ -7,7 +7,6 @@ import classNames from 'classnames';
 export const CodePopup = ({code}) => {
         const [check,setCheck]=useState(false);
         const handleClick = async() => {
-          // Use the Clipboard API to write the text to the clipboard
           navigator.clipboard.writeText(code).then(() => {
             console.log('Text copied to clipboard');
             setCheck(true);
@@ -27,7 +26,7 @@ export const CodePopup = ({code}) => {
     <div className='items-center h-full w-full flex justify-center flex-col p-2 md:mx-auto bg-black bg-opacity-80'>
         
         <pre className='h-full my-20  p-2 bg-white max-w-full  rounded-3xl overflow-auto max-h-full'>
-        <span className='bg-black sticky top-0 left-0 rounded-lg py-1 p-2 hover:cursor-pointer  flex items-center w-fit' onClick={handleClick}>{!check && <span class="material-symbols-outlined">content_copy</span>} <span className={classNames("material-symbols-outlined ",{'hidden':!check})}>
+        <span className='bg-black sticky top-0 left-0 rounded-lg py-1 p-2 hover:cursor-pointer  flex items-center w-fit' onClick={handleClick}>{!check && <span className="material-symbols-outlined">content_copy</span>} <span className={classNames("material-symbols-outlined ",{'hidden':!check})}>
 check
 </span></span>
             <code className='overflow-x-hidden'  ref={coderef}>

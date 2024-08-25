@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -10,7 +10,9 @@ import { LinkPage } from './pages/LinkPage'
 import { NotesPage } from './pages/NotesPage'
 import { ImagePage } from './pages/ImagePage'
 function App() {
-
+  useEffect(()=>{
+    console.log("App Component Rendered");
+  })
   const [islogin,setlogin]=useState(true);
   return (
     <>

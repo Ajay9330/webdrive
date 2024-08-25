@@ -10,7 +10,7 @@ export const Layout=()=>{
     const isopen=useSelector(state=>state.tools.isSidebaropen);
    
     useEffect(()=>{
-        
+        console.log("layout rendered");
     })
     return(
         <>  

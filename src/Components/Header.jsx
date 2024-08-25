@@ -20,8 +20,8 @@ export const Header = () => {
 
         <div className='bg-white text-black  w-56 h-8 rounded-3xl px-3 justify-around flex items-center' onClick={()=>dispach(toggleMode())}>
             <span className=' border-2 w-7 h-7 rounded-full text-center border-gray-500 cursor-pointer select-none active:scale-[0.95] transition-all duration-75'>
-                {theme=="light"?<span class="material-symbols-outlined">dark_mode</span>
-                :<img src={light} alt="" srcset="" />}
+                {theme=="light"?<span className="material-symbols-outlined">dark_mode</span>
+                :<img src={light} alt="" srcSet="" />}
             </span>
             <span className=' border-2 w-7 h-7 rounded-full text-center border-black'>
                 

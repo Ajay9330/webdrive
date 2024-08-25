@@ -6,11 +6,14 @@ export const CodePage = ({ data }) => {
   const [loading, setLoading] = useState(!data); 
   const [error, setError] = useState(null); 
   const view=useSelector(state=>state.tools.showMode);
+  useEffect(()=>{
+    console.log("CodePage rendered");
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (!data) {
-          const response = await fetch("https://api.github.com/repos/octocat/Spoon-Knife/issues");
+          const response = await fetch("http://api.github.com/users/ajay9330/repos");
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
