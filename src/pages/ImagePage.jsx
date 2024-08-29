@@ -1,7 +1,11 @@
 import React from 'react'
+import Images from '../Components/Outletcomponents/Images'
 
 export const ImagePage = () => {
   return (
-    <div>ImagePage</div>
+    <div>
+      <Images/>
+      
+    </div>
   )
 }

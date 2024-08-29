@@ -39,7 +39,7 @@ export const CodePage = ({ data }) => {
   }
 
   return (
-    <div className='flex flex-wrap  gap-7 self-start '>
+    <div className='flex flex-wrap gap-4 md:gap-6 self-start '>
       {/* <h1>CodePage</h1> */}
       {codeData.map((code, index) => (
         <Codes key={index} info={code} view={view} />

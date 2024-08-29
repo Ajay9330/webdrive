@@ -23,7 +23,7 @@ const Codes = ({ info,view }) => {
     }, []);
 
     return (<>
-        <div onClick={()=>(setModel(true))} className="mx-auto  max-h-56 h-fit hover:cursor-pointer hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900   rounded-xl overflow-clip max-w-96 flex flex-col">
+        <div onClick={()=>(setModel(true))} className="mx-auto  max-h-56 h-fit hover:cursor-pointer hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900   rounded-xl overflow-clip w-72 md:w-96 flex flex-col">
             <div className={classNames('flex items-center')}>
                 <h1 className='p-2'>info.tite{}</h1>
                 <div className=' ' >

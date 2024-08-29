@@ -20,7 +20,7 @@ export const Layout=()=>{
 
             <div className='flex-1  h-[calc(100vh-56px)] bg-blue-500 text-white flex-col flex '>
                 <Search/>
-            <div className='bg-primary1 flex-1 overflow-auto text-white flex flex-wrap  p-5'>
+            <div className='bg-primary1 flex-1 overflow-auto text-white flex flex-wrap pt-5 md:p-5'>
                 <Outlet/>
             </div>
             </div>
