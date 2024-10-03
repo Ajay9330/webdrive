@@ -5,7 +5,7 @@ export const NotesPage = () => {
   const [notes,setnotes]=useState([]);
   async function fetchNotes() {
     try {
-      const d=await fetch('http://api.github.com/users/ajay9330/repos');
+      const d=await fetch('http://api.github.com/users/OneBusAway/repos');
       const data=await d.json();
       setnotes(data);
     } catch (error) {
