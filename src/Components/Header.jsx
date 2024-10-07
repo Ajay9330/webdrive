@@ -33,7 +33,7 @@ export const Header = () => {
             
             <div className=' cursor-pointer border-2 w-7 h-7 flex border-gray-500  justify-center items-center rounded-full text-center '>
                 {userInfo ? <div className='' onClick={()=>setShowProfile(true)}>
-                    <img src={userInfo?.photoURL} alt="" />
+                    <img className='rounded-full' src={userInfo?.photoURL} alt=" " />
                 </div> 
                : <NavLink className="h-full w-full flex items-center justify-center " to="/signin">
                 <span className="text-[18px] material-symbols-outlined">person_add</span>   

@@ -47,7 +47,7 @@ webdrive
 │  │  └─ sun-svg.svg
 │  ├─ firebase
 │  │  ├─ authService.js
-│  │  ├─ fetchDataServices.js
+│  │  ├─ fetchDeleteDataServices.js
 │  │  ├─ firebaseConfig.js
 │  │  └─ submitServices.js
 │  ├─ index.css

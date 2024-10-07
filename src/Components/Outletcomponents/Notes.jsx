@@ -28,7 +28,7 @@ const Notes = ({ data, view, userId }) => {
     return (
         <>
             <div 
-                className={classNames("mx-auto p-5 max-h-56 h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900 rounded-xl overflow-clip w-72 md:w-96 flex flex-col", { '': view === 'list' })}
+                className={classNames("mx-auto  p-5 max-h-56 h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900 rounded-xl overflow-clip w-full md:w-96 flex flex-col", { '': view === 'list' })}
             >
                 <div className={classNames('flex items-center justify-between mb-2')}>
                     <h1 className='text-lg font-semibold text-blue-400'>{data.title || "Untitled"}</h1>

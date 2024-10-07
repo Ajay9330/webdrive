@@ -96,7 +96,7 @@ export const submitFile = async ({file, title, userId}) => {
  * @param {string} url - URL of the link
  * @param {string} userId - The user ID to associate the link with
  */
-export const submitLink = async ({title, url, userId}) => {
+export const submitLink = async ({title, url, userId,description}) => {
   const toastId = toast.loading("Adding link...");
 
   try {
@@ -105,6 +105,7 @@ export const submitLink = async ({title, url, userId}) => {
       url,
       userId,
       createdAt: Timestamp.fromDate(new Date()),
+      description
     });
 
     toast.update(toastId, { render: 'Link added successfully!', type: 'success', isLoading: false, autoClose: 2000 });

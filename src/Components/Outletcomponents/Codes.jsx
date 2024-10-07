@@ -30,7 +30,7 @@ const Codes = ({ info, view, onDelete }) => {
 
     return (
         <>
-            <div className="mx-auto p-5 max-h-56 h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900   rounded-xl overflow-clip w-96 md:w-96 flex flex-col">
+            <div className="mx-auto p-5 max-h-56 h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900   rounded-xl overflow-clip w-full md:w-96 flex flex-col">
                 <div className={classNames('flex items-center justify-between mb-2')}>
                     <h1 className='text-lg font-semibold text-blue-400'>{info.title || "Untitled"}</h1>
                     <button onClick={handleDelete} className="text-red-500  material-symbols-outlined">Delete</button>

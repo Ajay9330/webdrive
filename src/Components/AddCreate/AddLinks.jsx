@@ -6,14 +6,15 @@ const AddLinks = forwardRef((_, ref) => {
   const [links, setLinks] = useState([]);
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
-  const sampleUserId = 'sampleUserId123'; // Hardcoded sample user ID
-  const userId=useSelector(state=>state.user.userInfo.uid);
+  const [description, setDescription] = useState(''); // State for description
+  const userId = useSelector(state => state.user.userInfo.uid);
 
   const handleAddLink = () => {
     if (title && url) {
-      setLinks([...links, { title, url }]);
+      setLinks([...links, { title, url, description }]); // Include description
       setTitle('');
       setUrl('');
+      setDescription(''); // Clear description after adding
     } else {
       alert('Both title and URL are required.');
     }
@@ -28,7 +29,7 @@ const AddLinks = forwardRef((_, ref) => {
     submit: async () => {
       try {
         for (const link of links) {
-          await submitLink({ title: link.title, url: link.url, userId: sampleUserId });
+          await submitLink({ title: link.title, url: link.url, description: link.description, userId }); // Include description
         }
         console.log('Links submitted successfully:', links);
         setLinks([]); // Clear links after submission
@@ -58,6 +59,15 @@ const AddLinks = forwardRef((_, ref) => {
           className='w-full p-2 rounded-md bg-gray-900 border border-gray-700 text-white'
           placeholder='Enter link URL'
         />
+        
+        <input
+          id='description'
+          type='text'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className='w-full p-2 rounded-md bg-gray-900 border border-gray-700 text-white'
+          placeholder='Enter link description'
+        />
       </div>
 
       <button
@@ -72,6 +82,7 @@ const AddLinks = forwardRef((_, ref) => {
           <div key={index} className='gap-3 p-2 bg-gray-700 border border-gray-600 rounded flex items-center justify-between'>
             <div>
               <a href={link.url} target='_blank' rel='noopener noreferrer' className='text-blue-400'>{link.title}</a>
+              <p className='text-gray-300'>{link.description}</p> {/* Display description */}
             </div>
             <button
               onClick={() => handleDeleteLink(index)}
