@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import { submitLink } from '../../firebase/submitServices'; // Adjust the import path as necessary
 
-const AddLinks = () => {
+const AddLinks = forwardRef((_, ref) => {
   const [links, setLinks] = useState([]);
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
+  const sampleUserId = 'sampleUserId123'; // Hardcoded sample user ID
 
   const handleAddLink = () => {
     if (title && url) {
@@ -19,8 +21,23 @@ const AddLinks = () => {
     setLinks(links.filter((_, i) => i !== index));
   };
 
+  // Expose a submit method to the parent component
+  useImperativeHandle(ref, () => ({
+    submit: async () => {
+      try {
+        for (const link of links) {
+          await submitLink({ title: link.title, url: link.url, userId: sampleUserId });
+        }
+        console.log('Links submitted successfully:', links);
+        setLinks([]); // Clear links after submission
+      } catch (error) {
+        console.error('Error submitting links:', error);
+      }
+    }
+  }));
+
   return (
-    <div className='p-6 bg-gray-800 text-white '>
+    <div className='p-6 bg-gray-800 text-white'>
       <div className='mb-4 gap-2 flex flex-col md:flex-row'>
         <input
           id='title'
@@ -39,7 +56,6 @@ const AddLinks = () => {
           className='w-full p-2 rounded-md bg-gray-900 border border-gray-700 text-white'
           placeholder='Enter link URL'
         />
-    
       </div>
 
       <button
@@ -48,9 +64,10 @@ const AddLinks = () => {
       >
         Add Link
       </button>
+
       <div className='mt-4 md:flex-row flex gap-5 flex-wrap flex-col'>
         {links.map((link, index) => (
-          <div key={index} className='gap-3 p-2  bg-gray-700 border border-gray-600 rounded flex items-center justify-between'>
+          <div key={index} className='gap-3 p-2 bg-gray-700 border border-gray-600 rounded flex items-center justify-between'>
             <div>
               <a href={link.url} target='_blank' rel='noopener noreferrer' className='text-blue-400'>{link.title}</a>
             </div>
@@ -65,6 +82,6 @@ const AddLinks = () => {
       </div>
     </div>
   );
-};
+});
 
 export default AddLinks;

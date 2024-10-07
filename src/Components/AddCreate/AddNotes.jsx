@@ -1,100 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import { submitNote } from '../../firebase/submitServices'; // Adjust the import path as needed
 
-const AddNotes = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [notes, setNotes] = useState([]);
+const AddNotes = forwardRef(({ userId }, ref) => {
+  const [notes, setNotes] = useState([{ title: '', content: '' }]);
 
-  // Handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (title.trim() === '' || content.trim() === '') {
-      return; // Do nothing if title or content is empty
-    }
-
-    // Add the new note to the list
-    setNotes([
-      ...notes,
-      {
-        title,
-        content,
-        date: new Date().toISOString() // Include a date/time stamp
-      }
-    ]);
-
-    // Reset the form fields
-    setTitle('');
-    setContent('');
+  // Function to handle title and content changes
+  const handleChange = (index, field, value) => {
+    const updatedNotes = notes.map((note, i) => 
+      i === index ? { ...note, [field]: value } : note
+    );
+    setNotes(updatedNotes);
   };
 
-  // Handle note deletion
+  // Function to add a new note
+  const handleAddNote = () => {
+    setNotes([...notes, { title: '', content: '' }]);
+  };
+
+  // Function to delete a note
   const handleDeleteNote = (index) => {
     const updatedNotes = notes.filter((_, i) => i !== index);
     setNotes(updatedNotes);
   };
 
+  // Expose a submit method to the parent component
+  useImperativeHandle(ref, () => ({
+    submit: async () => {
+      try {
+        const uploadPromises = notes.map(note => 
+          submitNote({ title: note.title, content: note.content, userId }) // Call the submitNote service
+        );
+
+        const results = await Promise.all(uploadPromises);
+        console.log('Successfully uploaded notes with IDs:', results);
+        return results; // Return IDs of uploaded notes if needed
+      } catch (error) {
+        console.error('Error submitting notes:', error);
+        throw error; // Rethrow the error for handling in the component
+      }
+    }
+  }));
+
   return (
-    <div className='p-6 min-h-screen'>
-      <h1 className='text-2xl font-semibold mb-4'>Add a Note</h1>
-      <form onSubmit={handleSubmit} className='space-y-4'>
-        <div>
-          <label htmlFor='title' className='block text-lg font-medium mb-1'>Title:</label>
+    <div className='p-4 m-2 bg-gray-800 border border-gray-700 rounded-lg'>
+      <h2 className='text-lg font-semibold text-white mb-4'>Add Notes</h2>
+      
+      {notes.map((note, index) => (
+        <div key={index} className='mb-4 p-2 border border-gray-600 rounded-md'>
           <input
-            id='title'
             type='text'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className='bg-black w-full p-2 border border-gray-300 rounded-md'
-            placeholder='Enter note title'
-            required
+            value={note.title}
+            onChange={(e) => handleChange(index, 'title', e.target.value)}
+            placeholder='Enter title'
+            className='w-full p-2 mb-2 border border-gray-600 rounded-md bg-gray-700 text-white'
           />
-        </div>
-
-        <div>
-          <label htmlFor='content' className='block text-lg font-medium mb-1'>Content:</label>
           <textarea
-            id='content'
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className='w-full p-2 border bg-black border-gray-300 rounded-md'
-            placeholder='Enter note content'
-            rows='5'
-            required
-          ></textarea>
+            value={note.content}
+            onChange={(e) => handleChange(index, 'content', e.target.value)}
+            placeholder='Enter content'
+            className='w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white'
+            rows={4}
+          />
+          <button
+            onClick={() => handleDeleteNote(index)}
+            className='mt-2 p-2 bg-red-500 text-white rounded hover:bg-red-600'
+          >
+            Delete
+          </button>
         </div>
-
-        <button
-          type='submit'
-          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-        >
-          Add Note
-        </button>
-      </form>
-
-      {/* Display added notes */}
-      {notes.length > 0 && (
-        <div className='mt-6'>
-          <h2 className='text-xl font-semibold mb-2'>Notes:</h2>
-          <ul className='space-y-4'>
-            {notes.map((note, index) => (
-              <li key={index} className='p-4 border border-gray-300 rounded-md'>
-                <h3 className='text-lg font-semibold'>{note.title}</h3>
-                <p className='mt-1'>{note.content}</p>
-                <small className='text-gray-500'>{new Date(note.date).toLocaleString()}</small>
-                <button
-                  onClick={() => handleDeleteNote(index)}
-                  className='mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600'
-                >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      ))}
+      
+      <button
+        onClick={handleAddNote}
+        className='mt-4 p-2 bg-green-500 text-white rounded hover:bg-green-600'
+      >
+        Add Another Note
+      </button>
     </div>
   );
-};
+});
 
 export default AddNotes;

@@ -1,25 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { useDropzone } from 'react-dropzone';
 import classNames from 'classnames';
+import { submitFile } from '../../firebase/submitServices'; // Adjust the import path as needed
 
-const AddFiles = ({ onFilesChange }) => {
+const AddFiles = forwardRef(({ userId }, ref) => {
   const [files, setFiles] = useState([]);
 
   // Function to handle accepted files
   const handleDrop = (acceptedFiles) => {
-    const newFiles = acceptedFiles.map(file => ({ file, title: '' }));
+    const newFiles = acceptedFiles.map(file => ({ file, title: file.name })); // Set title to original file name
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    if (onFilesChange) onFilesChange([...files, ...newFiles]);
   };
 
   // Function to handle file deletion
   const handleDeleteFile = (index) => {
     const updatedFiles = files.filter((_, i) => i !== index);
     setFiles(updatedFiles);
-    if (onFilesChange) onFilesChange(updatedFiles);
   };
-
-
 
   // Function to handle title change
   const handleTitleChange = (index, newTitle) => {
@@ -27,7 +24,6 @@ const AddFiles = ({ onFilesChange }) => {
       i === index ? { ...file, title: newTitle } : file
     );
     setFiles(updatedFiles);
-    if (onFilesChange) onFilesChange(updatedFiles);
   };
 
   // Initialize the dropzone
@@ -36,12 +32,23 @@ const AddFiles = ({ onFilesChange }) => {
     multiple: true, // Allow multiple file uploads
   });
 
-  // Handle form submission
-  const handleSubmit = () => {
-    // Placeholder for form submission logic
-    console.log('Submitting files:', files);
-    // Example: You might want to upload files or process them
-  };
+  // Expose a submit method to the parent component
+  useImperativeHandle(ref, () => ({
+    submit: async () => {
+      try {
+        const uploadPromises = files.map(fileObj => 
+          submitFile({ file: fileObj.file, title: fileObj.title, userId }) // Call the submitFile service
+        );
+
+        const results = await Promise.all(uploadPromises);
+        console.log('Successfully uploaded files with IDs:', results);
+        return results; // Return IDs of uploaded files if needed
+      } catch (error) {
+        console.error('Error submitting files:', error);
+        throw error; // Rethrow the error for handling in the component
+      }
+    }
+  }));
 
   return (
     <div className='p-4 m-2 bg-gray-800 border border-gray-700 rounded-lg'>
@@ -58,36 +65,30 @@ const AddFiles = ({ onFilesChange }) => {
         <p className='text-white'>Drag 'n' drop some files here, or click to select files</p>
       </div>
       
-
-      
       <ul className='list-disc p-2 text-white'>
         {files.map((fileObj, index) => (
           <li key={index} className='flex flex-col mb-4 border-[1px] p-2 rounded-xl border-gray-400 border-opacity-50'>
-            <div className='flex items-center justify-between flex-wrap gap-2 '>
+            <div className='flex items-center justify-between flex-wrap gap-2'>
               <span className='text-white'>{fileObj.file.name}</span>  
               <input
-              type='text'
-              value={fileObj.title}
-              onChange={(e) => handleTitleChange(index, e.target.value)}
-              placeholder='Enter title'
-              className='mt-2 p-2 border border-gray-600 rounded-md bg-gray-700 text-white'
-            />
-
+                type='text'
+                value={fileObj.title}
+                onChange={(e) => handleTitleChange(index, e.target.value)}
+                placeholder='Enter title'
+                className='mt-2 p-2 border border-gray-600 rounded-md bg-gray-700 text-white'
+              />
               <button
                 onClick={() => handleDeleteFile(index)}
-                className='ml-2 p-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 material-symbols-outlined'
+                className='ml-2 p-2 py-1 bg-red-500 text-white rounded hover:bg-red-600'
               >
                 Delete
               </button>
             </div>
-          
           </li>
         ))}
       </ul>
-      
-
     </div>
   );
-};
+});
 
 export default AddFiles;

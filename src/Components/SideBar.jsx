@@ -16,19 +16,19 @@ export const SideBar = () => {
                 <span className="material-symbols-outlined flex mx-auto shadow-[0px_0px_10px_1px_black] rounded-md  bg-black text-white">add</span>
             </button>
             <ul className={classNames("flex-col flex gap-4 mt-4",{'pr-6':isopen})}>
-                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='/codes'>
+                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='codes'>
                     <span className=" text-black  font-bold material-symbols-outlined">code</span><span className={classNames({'md:hidden':!isopen})}>Code</span>
                 </NavLink>
-                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='/notes'>
+                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='notes'>
                     <span className=" text-black  font-bold material-symbols-outlined">text_snippet</span><span className={classNames({'md:hidden':!isopen})}>Notes</span>
                 </NavLink>
-                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='/links'>
+                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='links'>
                     <span className=" text-black  font-bold material-symbols-outlined">link </span><span className={classNames({'md:hidden':!isopen})}>Links</span>
                 </NavLink>
                 <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='images'>
                 <span className=" text-black  font-bold material-symbols-outlined">image</span><span className={classNames({'md:hidden':!isopen})}>Images</span>
                 </NavLink>
-                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='/files'>
+                <NavLink className={classNames('navlinks',{'md:rounded-full md:p-2 md:mx-1':!isopen})} to='files'>
                     <span className=" text-black  font-bold material-symbols-outlined">folder</span><span className={classNames({'md:hidden':!isopen})}>Files</span>
                 </NavLink>
             </ul>

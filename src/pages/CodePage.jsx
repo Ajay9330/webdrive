@@ -13,7 +13,7 @@ export const CodePage = ({ data }) => {
     const fetchData = async () => {
       try {
         if (!data) {
-          const response = await fetch("http://api.github.com/users/OneBusAway/repos");
+          const response = await fetch("https://api.github.com/users/OneBusAway/repos");
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }

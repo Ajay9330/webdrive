@@ -1,8 +1,66 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```
+webdrive
+├─ .env
+├─ .eslintrc.cjs
+├─ README.md
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.js
+├─ public
+│  └─ vite.svg
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ Components
+│  │  ├─ AddCreate
+│  │  │  ├─ AddCodes.jsx
+│  │  │  ├─ AddFiles.jsx
+│  │  │  ├─ AddImages.jsx
+│  │  │  ├─ AddLinks.jsx
+│  │  │  ├─ AddNotes.jsx
+│  │  │  └─ lang.js
+│  │  ├─ Header.jsx
+│  │  ├─ Layout.jsx
+│  │  ├─ Model.jsx
+│  │  ├─ ModelComponents
+│  │  │  ├─ Add.jsx
+│  │  │  └─ CodePopup.jsx
+│  │  ├─ Outletcomponents
+│  │  │  ├─ Codes.jsx
+│  │  │  ├─ Files.jsx
+│  │  │  ├─ Images.jsx
+│  │  │  ├─ Links.jsx
+│  │  │  └─ Notes.jsx
+│  │  ├─ Search.jsx
+│  │  └─ SideBar.jsx
+│  ├─ appstore
+│  │  ├─ reducers
+│  │  │  ├─ accesblity.js
+│  │  │  └─ userSlice.js
+│  │  └─ store.js
+│  ├─ assets
+│  │  ├─ menu_open.svg
+│  │  ├─ react.svg
+│  │  └─ sun-svg.svg
+│  ├─ firebase
+│  │  ├─ authService.js
+│  │  ├─ fetchDataServices.js
+│  │  ├─ firebaseConfig.js
+│  │  └─ submitServices.js
+│  ├─ index.css
+│  ├─ main.jsx
+│  └─ pages
+│     ├─ CodePage.jsx
+│     ├─ FilesPage.jsx
+│     ├─ Homepage.jsx
+│     ├─ ImagePage.jsx
+│     ├─ LinkPage.jsx
+│     ├─ NotesPage.jsx
+│     ├─ SignIn.jsx
+│     └─ SignUp.jsx
+├─ tailwind.config.js
+└─ vite.config.js
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```

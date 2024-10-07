@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import AddCode from '../AddCreate/AddCodes';
 import AddFiles from '../AddCreate/AddFiles';
 import AddImages from '../AddCreate/AddImages';
@@ -25,23 +25,23 @@ const formNames = {
 };
 
 export default function AddPage() {
-  const [selectedComp, setSelectedComp] = useState(''); // Track selected form type
-  const [formRefs, setFormRefs] = useState([]); // Track added forms
+  const [selectedComp, setSelectedComp] = useState('');
+  const [formRefs, setFormRefs] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // Handle adding a new form
   const handleAddForm = () => {
     const compIndex = parseInt(selectedComp);
     if (isNaN(compIndex) || !componentMap[compIndex]) {
-      alert('Please select a valid form type to add.');
+      setErrorMessage('Please select a valid form type to add.');
       return;
     }
 
     const newFormRef = React.createRef();
-    setFormRefs([...formRefs, { type: compIndex, ref: newFormRef }]);
-    setSelectedComp(''); // Clear selection after adding
+    setFormRefs((prevRefs) => [...prevRefs, { type: compIndex, ref: newFormRef }]);
+    setSelectedComp('');
+    setErrorMessage('');
   };
 
-  // Handle submitting all forms
   const handleSubmitAll = async () => {
     const submitPromises = formRefs.map(({ ref }) => {
       if (ref.current && typeof ref.current.submit === 'function') {
@@ -53,29 +53,36 @@ export default function AddPage() {
     try {
       await Promise.all(submitPromises);
       alert('All forms submitted successfully');
+      
+      // Reset the page after submission
+      setFormRefs([]);
+      setSelectedComp('');
+      setErrorMessage('');
     } catch (error) {
-      alert('Error in submitting forms: ' + error.message);
+      setErrorMessage('Error in submitting forms: ' + error.message);
     }
   };
 
-  // Handle deleting a form by its index
   const handleDeleteForm = (index) => {
-    setFormRefs((prevRefs) => prevRefs.filter((_, i) => i !== index));
+    if (window.confirm('Are you sure you want to delete this form?')) {
+      setFormRefs((prevRefs) => prevRefs.filter((_, i) => i !== index));
+    }
   };
 
   return (
     <div className='flex items-center h-full flex-col bg-gray-900 w-full overflow-auto p-6'>
-      <div className='flex flex-col gap-4 w-full '>
+      {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
+      <div className='flex flex-col gap-4 w-full'>
         {formRefs.map(({ type, ref }, index) => {
           const Component = componentMap[type];
           return (
-            <div key={index} className=' p-4 bg-gray-800 border border-white rounded-lg  gap-4 items-center  '>
-              <Component ref={ref} />
+            <div key={index} className='p-4 bg-gray-800 border border-white rounded-lg gap-4 items-center'>
+              <Component ref={ref} onSubmit={(data) => console.log(data)} />
               <button
                 onClick={() => handleDeleteForm(index)}
-                className='rounded  py-1 border border-red-600 hover:bg-red-100 material-symbols-outlined text-red-600'
+                className='rounded py-1 border border-red-600 hover:bg-red-100 text-red-600'
               >
-                delete
+                Delete
               </button>
             </div>
           );
@@ -104,7 +111,7 @@ export default function AddPage() {
           </button>
         </div>
 
-        <button onClick={handleSubmitAll} className=' px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700'>
+        <button onClick={handleSubmitAll} className='px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700'>
           Submit All Forms
         </button>
       </div>

@@ -3,7 +3,7 @@ export const Model=({children,close})=>{
 
     return(
         <>  
-            <div className='absolute max-w-screen max-h-screen h-full w-full overflow-hidden
+            <div className='fixed max-w-screen max-h-screen h-full w-full overflow-hidden
              bg-black left-0 bg-opacity-75 top-0 flex flex-col items-center justify-center'>
                 
                 <div style={{animation:'zoomout', animationDuration:'.3s'}} className='md:max-h-[95%] overflow-hidden h-full w-full flex-1  md:max-w-[95%] text-white  '>

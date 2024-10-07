@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { submitImage } from '../../firebase/submitServices'; // Adjust the import path as needed
 
-const AddImages = ({ onImagesChange }) => {
+const AddImages = forwardRef(({ userId }, ref) => {
   const [images, setImages] = useState([]);
 
   // Function to handle accepted image files
   const handleDrop = (acceptedFiles) => {
     const newImages = acceptedFiles.map((file) => {
       const url = URL.createObjectURL(file);
-      return { file, url, name: file.name };
+      return { file, url, name: file.name }; // Use original name as default
     });
     setImages((prevImages) => [...prevImages, ...newImages]);
-    if (onImagesChange) onImagesChange([...images, ...newImages]);
   };
 
   // Function to handle image deletion
   const handleDeleteImage = (index) => {
     const updatedImages = images.filter((_, i) => i !== index);
     setImages(updatedImages);
-    if (onImagesChange) onImagesChange(updatedImages);
   };
 
   // Function to handle name change
@@ -27,7 +26,6 @@ const AddImages = ({ onImagesChange }) => {
       i === index ? { ...img, name: newName } : img
     );
     setImages(updatedImages);
-    if (onImagesChange) onImagesChange(updatedImages);
   };
 
   // Initialize the dropzone with image-only acceptance
@@ -37,12 +35,27 @@ const AddImages = ({ onImagesChange }) => {
     multiple: true, // Allow multiple image uploads
   });
 
-  // Handle form submission
-  const handleSubmit = () => {
-    // Placeholder for form submission logic
-    console.log('Submitting images:', images.map((img) => ({ file: img.file, name: img.name })));
-    // Example: You might want to upload images or process them
-  };
+  // Expose a submit method to the parent component
+  useImperativeHandle(ref, () => ({
+    submit: async () => {
+      try {
+        const uploadPromises = images.map(img => 
+          submitImage({
+            imageFile: img.file,
+            title: img.name,
+             userId
+          }) // Pass an object to the submitImage service
+        );
+
+        const results = await Promise.all(uploadPromises);
+        console.log('Successfully uploaded images with IDs:', results);
+        return results; // Return IDs of uploaded images if needed
+      } catch (error) {
+        console.error('Error submitting images:', error);
+        throw error; // Rethrow the error for handling in the component
+      }
+    }
+  }));
 
   return (
     <div className='p-4 bg-gray-800 border border-gray-700 rounded-lg'>
@@ -80,10 +93,8 @@ const AddImages = ({ onImagesChange }) => {
           </div>
         ))}
       </div>
-      
- 
     </div>
   );
-};
+});
 
 export default AddImages;
