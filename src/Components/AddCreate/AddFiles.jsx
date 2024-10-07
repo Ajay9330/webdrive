@@ -2,9 +2,11 @@ import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { useDropzone } from 'react-dropzone';
 import classNames from 'classnames';
 import { submitFile } from '../../firebase/submitServices'; // Adjust the import path as needed
+import { useSelector } from 'react-redux';
 
-const AddFiles = forwardRef(({ userId }, ref) => {
+const AddFiles = forwardRef((_, ref) => {
   const [files, setFiles] = useState([]);
+  const userId=useSelector(state=>state.user.userInfo.uid);
 
   // Function to handle accepted files
   const handleDrop = (acceptedFiles) => {

@@ -33,6 +33,7 @@ webdrive
 │  │  │  ├─ Images.jsx
 │  │  │  ├─ Links.jsx
 │  │  │  └─ Notes.jsx
+│  │  ├─ Profile.jsx
 │  │  ├─ Search.jsx
 │  │  └─ SideBar.jsx
 │  ├─ appstore

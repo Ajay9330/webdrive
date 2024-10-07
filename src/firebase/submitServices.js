@@ -22,7 +22,7 @@ const showToast = (text, type) => {
  * @param {string} title - Title or name of the image
  * @param {string} userId - The user ID to associate the image with
  */
-export const submitImage = async ({imageFile, title, userId='hi'}) => {
+export const submitImage = async ({imageFile, title, userId}) => {
   const toastId = toast.loading("Uploading image...");
 
   try {
@@ -59,7 +59,7 @@ export const submitImage = async ({imageFile, title, userId='hi'}) => {
  * @param {string} title - Title or name of the file
  * @param {string} userId - The user ID to associate the file with
  */
-export const submitFile = async ({file, title, userId='hi'}) => {
+export const submitFile = async ({file, title, userId}) => {
   const toastId = toast.loading("Uploading file...");
 
   try {
@@ -96,7 +96,7 @@ export const submitFile = async ({file, title, userId='hi'}) => {
  * @param {string} url - URL of the link
  * @param {string} userId - The user ID to associate the link with
  */
-export const submitLink = async ({title, url, userId="hi"}) => {
+export const submitLink = async ({title, url, userId}) => {
   const toastId = toast.loading("Adding link...");
 
   try {
@@ -123,7 +123,7 @@ export const submitLink = async ({title, url, userId="hi"}) => {
  * @param {string} content - Content of the note
  * @param {string} userId - The user ID to associate the note with
  */
-export const submitNote = async ({title, content, userId="hi"}) => {
+export const submitNote = async ({title, content, userId}) => {
   const toastId = toast.loading("Adding note...");
 
   try {
@@ -152,7 +152,7 @@ export const submitNote = async ({title, content, userId="hi"}) => {
  * @param {string} codeData.language - The programming language
  * @param {string} codeData.userId - The user ID associated with the code
  */
-export const submitCode = async ({ title, code, language, userId='hi' }) => {
+export const submitCode = async ({ title, code, language, userId }) => {
   const toastId = toast.loading("Adding code...");
 
   try {

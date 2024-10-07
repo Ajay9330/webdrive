@@ -1,11 +1,13 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { submitLink } from '../../firebase/submitServices'; // Adjust the import path as necessary
+import { useSelector } from 'react-redux';
 
 const AddLinks = forwardRef((_, ref) => {
   const [links, setLinks] = useState([]);
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const sampleUserId = 'sampleUserId123'; // Hardcoded sample user ID
+  const userId=useSelector(state=>state.user.userInfo.uid);
 
   const handleAddLink = () => {
     if (title && url) {

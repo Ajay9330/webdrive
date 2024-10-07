@@ -1,33 +1,59 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import classNames from 'classnames';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Model } from '../Model';
 import { CodePopup } from '../ModelComponents/CodePopup';
+import classNames from 'classnames';
+import { DeleteData } from '../../firebase/fetchDeleteDataServices'; // Import your delete function
+import hljs from 'highlight.js/lib/common'; // Import hljs for syntax highlighting
+import 'highlight.js/styles/xt256.css'; // Import the desired highlight.js style
 
-const Notes = ({ data,view }) => {
-    const [showmodel,setModel]=useState(false);
-    const d=new Date();
-    const datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " +
-    d.getHours() + ":" + d.getMinutes();
+const Notes = ({ data, view, userId }) => {
+    const [showModel, setModel] = useState(false);
+    const noteRef = useRef(null); // Reference for the note content
+    const date = new Date(data.createdAt.seconds*1000);
+    const dateString = date.toLocaleString();
 
+    const handleDelete = async (event) => {
+        event.stopPropagation(); // Prevent click event from bubbling up to the card
+        const filePath = `path/to/your/notes/${data.id}`; // Adjust to your file path
+        await DeleteData(filePath, 'notes', data.id);
+    };
 
-    return (<>
-        <div onClick={()=>(setModel(true))} className="p-2 mx-auto border-[1px] border-opacity-50 border-blue-50  max-h-56 h-fit hover:cursor-pointer hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900   rounded-xl overflow-clip w-72 md:w-96 flex flex-col">
-            <div className={classNames(' bg-blue-500 rounded-sm flex items-center')}>
-                <h1 className='p-2'>data.tite{}</h1>
-                <div className=' ' >
-                    <article>Date:{datestring}</article>
+    useEffect(() => {
+        if (noteRef.current) {
+            hljs.highlightBlock(noteRef.current); // Highlight the note content
+        }
+    }, [data.content]); // Re-run on content change
+
+    return (
+        <>
+            <div 
+                className={classNames("mx-auto p-5 max-h-56 h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900 rounded-xl overflow-clip w-72 md:w-96 flex flex-col", { '': view === 'list' })}
+            >
+                <div className={classNames('flex items-center justify-between mb-2')}>
+                    <h1 className='text-lg font-semibold text-blue-400'>{data.title || "Untitled"}</h1>
+                    <button onClick={handleDelete} className="text-red-500 material-symbols-outlined">Delete</button>
                 </div>
+                <article className='text-sm text-gray-400 mt-2 flex flex-wrap justify-around'>
+                    <article>
+                        <span className='font-medium'>Date:</span>
+                        <span className='ml-1'>{dateString}</span>
+                    </article>
+                    {view === "list" && (
+                        <span className='cursor-pointer material-symbols-outlined hover:text-white' onClick={() => setModel(true)}>open_with</span>
+                    )}
+                </article>
+                <pre onClick={() => (setModel(true))} className={classNames('break-all  hover:cursor-pointer  text-wrap overflow-auto hover:border-opacity-100 border-[1px] border-opacity-0 border-blue-500 hover:bg-zinc-700 p-2 w-full', { "hidden": view === "list" })}>
+                    <code ref={noteRef} >
+                        {data.content}
+                    </code>
+                </pre>
             </div>
-            
-            <pre className={classNames('break-all text-wrap overflow-hidden w-full ',{ "hidden":view=="list"})}>
-                    {JSON.stringify(data, null, 2).substring(0,200)} 
-            </pre>
-        </div>
-        {showmodel && createPortal(<Model children={<CodePopup code={JSON.stringify(data,null,2)}/>} close={setModel}/>,document.body)}
+            {showModel && createPortal(
+                <Model children={<CodePopup code={JSON.stringify(data.content, null, 2)} />} close={setModel} />, 
+                document.body
+            )}
         </>
-
     );
 };
 

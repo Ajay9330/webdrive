@@ -1,8 +1,10 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { submitNote } from '../../firebase/submitServices'; // Adjust the import path as needed
+import { useSelector } from 'react-redux';
 
-const AddNotes = forwardRef(({ userId }, ref) => {
+const AddNotes = forwardRef((_, ref) => {
   const [notes, setNotes] = useState([{ title: '', content: '' }]);
+  const userId=useSelector(state=>state.user.userInfo.uid);
 
   // Function to handle title and content changes
   const handleChange = (index, field, value) => {

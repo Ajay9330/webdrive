@@ -25,7 +25,7 @@ export const CodePopup = ({code}) => {
   return (
     <div className='items-center h-full w-full flex justify-center flex-col p-2 md:mx-auto bg-black bg-opacity-80'>
         
-        <pre className='h-full my-20  p-2 bg-white max-w-full  rounded-3xl overflow-auto max-h-full'>
+        <pre className='h-full w-full my-20  p-2 bg-white max-w-full  rounded-3xl overflow-auto max-h-full'>
         <span className='bg-black sticky top-0 left-0 rounded-lg py-1 p-2 hover:cursor-pointer  flex items-center w-fit' onClick={handleClick}>{!check && <span className="material-symbols-outlined">content_copy</span>} <span className={classNames("material-symbols-outlined ",{'hidden':!check})}>
 check
 </span></span>

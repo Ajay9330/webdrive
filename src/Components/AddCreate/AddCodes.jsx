@@ -2,18 +2,25 @@ import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { Editor } from '@monaco-editor/react';
 import languageOptions from './lang';
 import { submitCode } from '../../firebase/submitServices';
+import { useSelector } from 'react-redux';
 
-const AddCodes = forwardRef(({ userId }, ref) => {
+const AddCodes = forwardRef((_, ref) => {
   const [code, setCode] = useState('// Your code here\nconsole.log("Hello, world!");');
   const [title, setTitle] = useState('');
   const [language, setLanguage] = useState('javascript');
+  const userId = useSelector(state => state.user.userInfo.uid); // Adjusted userId access
+
   useImperativeHandle(ref, () => ({
     submit: async () => {
+      if (!userId) {
+        throw new Error('User ID is not available');
+      }
       try {
-        await submitCode({ title, code, language, userId:"hi" });
+        await submitCode({ title, code, language, userId });
         console.log('Code submitted successfully');
       } catch (error) {
         console.error('Error submitting code:', error);
+        throw error; // Re-throw to handle in parent if needed
       }
     }
   }));
@@ -49,10 +56,10 @@ const AddCodes = forwardRef(({ userId }, ref) => {
           </div>
           <Editor
             height='300px'
-            language={language} // Dynamic language
+            language={language}
             value={code}
             onChange={(value) => setCode(value || '')}
-            theme='vs-dark' // You can change the theme
+            theme='vs-dark'
           />
         </div>
       </form>
