@@ -8,15 +8,15 @@ export const Search = () => {
     const dispatch=useDispatch();
   return (
     <div className='h-10 bg-white flex p-1 gap-2 justify-around'>
-        <div className='bg-primary2 w-16 rounded-sm flex items-center justify-around border-gray-700 border-[1px]'>
+        <div className='  rounded-sm gap-2 p-2 flex items-center justify-around border-gray-700 border-[1px]'>
             <button 
-                className={`material-symbols-outlined text-black ${view === 'grid' ? 'bg-blue-500' : ''}`}
+                className={`material-symbols-outlined text-zinc-900 border-[1px]  ${view === 'grid' ? 'bg-zinc-300 border-zinc-600 rounded-sm' : ''}`}
                 onClick={() => dispatch(setshowMode('grid'))}
             >
                 grid_view
             </button>
             <button 
-                className={`material-symbols-outlined text-black ${view === 'list' ? 'bg-blue-500' : ''}`}
+                className={`material-symbols-outlined text-zinc-900 border-[1px]  ${view === 'list' ? 'bg-zinc-300 border-zinc-600 rounded-sm' : ''}`}
                 onClick={() => dispatch(setshowMode('list'))}
             >
                 view_list

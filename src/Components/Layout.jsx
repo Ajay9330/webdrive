@@ -16,7 +16,7 @@ export const Layout=()=>{
         <>  
         <Header/>   
             <div className='bg-white flex h-full  '>
-            <div className={`absolute overflow-hidden md:static w-44 transition-all h-[calc(100vh-56px)] bg-primary2 ${!isopen && ' -translate-x-44 md:translate-x-0 md:w-12'}`}><SideBar /></div>
+            <div className={`absolute overflow-hidden md:static w-44 transition-all h-[calc(100vh-56px)] border-[1px_1px_0px_0px] bg-[#000000] border-r-[1px] border-t-[1px] border-zinc-600 ${!isopen && ' -translate-x-44 md:translate-x-0 md:w-12'}`}><SideBar /></div>
 
             <div className='flex-1  h-[calc(100vh-56px)] bg-blue-500 text-white flex-col flex '>
                 <Search/>

@@ -25,10 +25,10 @@ const Images = ({ data, onDelete, view }) => {
             <span className='font-medium'>Date:</span>
             <span className='ml-1'>{dateString}</span>
           </article>
-          <article>
+          {/* <article>
             <span className='font-medium'>Size:</span>
             <span className="font-semibold text-yellow-300 ml-1">{data.size} KB</span>
-          </article>
+          </article> */}
           {view === "list" && (
             <span className='cursor-pointer material-symbols-outlined hover:text-white' onClick={() => setModel(true)}>open_with</span>
           )}

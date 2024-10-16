@@ -16,7 +16,7 @@ export const Header = () => {
     const userInfo=useSelector(state=>state.user.userInfo);
     const [show,setShowProfile]=useState(false);
   return (
-    <div className=' sticky  w-full top-0 bg-primary1 text-white flex justify-between px-3 items-center '>
+    <div className=' sticky  w-full  top-0 bg-zinc-900 backdrop-blur-xl  text-white flex justify-between px-3 items-center '>
         <div className='flex p-3 w-64 justify-around items-center'>
             <button onClick={()=>dispach(setSideBar(!isopen))} className=' w-8 h-8 '>
                 <img src={menu} alt="" />
@@ -27,14 +27,14 @@ export const Header = () => {
             </NavLink>
         </div>
 
-        <div className='bg-white text-black  w-56 h-8 rounded-3xl px-3 justify-around flex items-center' >
-            <span onClick={()=>dispach(toggleMode())} className=' border-2 w-7 h-7 rounded-full text-center border-gray-500 cursor-pointer select-none active:scale-[0.95] transition-all duration-75'>
+        <div className='bg-zinc-200 text-black  w-56 h-8 rounded-3xl px-3 justify-around flex items-center' >
+            <span onClick={()=>dispach(toggleMode())} className=' border-2 w-7 h-7 rounded-full text-center border-gray-500 bg-white cursor-pointer select-none active:scale-[0.95] transition-all duration-75'>
                 {theme=="light"?<span className="material-symbols-outlined">dark_mode</span>
                 :<img src={light} alt="" srcSet="" />}
             </span>
             
             <div className=' cursor-pointer border-2 w-7 h-7 flex border-gray-500  justify-center items-center rounded-full text-center '>
-                {userInfo ? <div className='' onClick={()=>setShowProfile(true)}>
+                {userInfo ? <div className='rounded-full bg-white' onClick={()=>setShowProfile(true)}>
                     <img className='rounded-full' src={userInfo?.photoURL} alt=" " />
                 </div> 
                : <NavLink className="h-full w-full flex items-center justify-center " to="/signin">

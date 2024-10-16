@@ -32,7 +32,9 @@
 .navlinks.active{
     @apply bg-blue-500 text-white;
 }
-
+.navlinks.navlinks.active span{
+  @apply text-yellow-200
+}
 
 /* animations */
 @keyframes zoomout {
