@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import light from './../assets/sun-svg.svg'
 import menu from '../assets/menu_open.svg'
+import logoicon from '../assets/logo_icon.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMode, setSideBar, toggleMode } from '../appstore/reducers/accesblity'
 import{} from '../appstore/reducers/userSlice';
@@ -16,12 +17,13 @@ export const Header = () => {
     const [show,setShowProfile]=useState(false);
   return (
     <div className=' sticky  w-full top-0 bg-primary1 text-white flex justify-between px-3 items-center '>
-        <div className='flex p-3 w-64 justify-between items-center'>
+        <div className='flex p-3 w-64 justify-around items-center'>
             <button onClick={()=>dispach(setSideBar(!isopen))} className=' w-8 h-8 '>
                 <img src={menu} alt="" />
             </button>
-            <NavLink to='/' className='bg-white w-20 h-8 '>
-                lo
+            <NavLink to='/' className='bg-black max-w-32 p-2 gap-2 h-8 rounded-md text-sm font-black hover:shadow-xl flex justify-center items-center'>
+                <img className='w-6' src={logoicon} alt="" />
+                <span className='hidden md:block'>Webdrive</span>
             </NavLink>
         </div>
 

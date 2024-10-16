@@ -15,7 +15,7 @@ const Images = ({ data, onDelete, view }) => {
 
   return (
     <>
-      <div className={classNames("mx-auto p-5 max-h-56 h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900 rounded-xl overflow-clip w-full md:w-96 flex flex-col",{'min-w-full':view=='list'})}>
+      <div className={classNames("mx-auto  p-5  h-fit hover:shadow-[0px_0px_1px_1px_white] bg-zinc-900 rounded-xl overflow-clip w-full md:w-96 flex flex-col",{'min-w-full':view=='list'})}>
         <div className="flex items-center justify-between mb-2">
           <h1 className='text-md font-semibold text-blue-400'>{data.title || "Untitled"}</h1>
           <button onClick={handleDelete} className="text-red-500 material-symbols-outlined">Delete</button>
@@ -34,9 +34,9 @@ const Images = ({ data, onDelete, view }) => {
           )}
         </article>
         {view === "grid" && (
-          <div className='w-full h-full mt-2'>
+          <div className='w-full justify-center flex max-h-60 mt-2 border-[1px] border-zinc-600 hover:border-yellow-200 rounded-lg'>
           <img 
-            className='rounded-2xl object-scale-down  cursor-pointer hover:opacity-75'
+            className='rounded-2xl object-contain max-h-60  cursor-pointer hover:opacity-75'
             src={data.url} 
             alt={data.title || "Image"} 
             onClick={() => setModel(true)} 

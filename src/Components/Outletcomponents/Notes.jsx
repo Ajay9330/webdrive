@@ -50,7 +50,7 @@ const Notes = ({ data, view, userId }) => {
                 </pre>
             </div>
             {showModel && createPortal(
-                <Model children={<CodePopup code={JSON.stringify(data.content, null, 2)} />} close={setModel} />, 
+                <Model children={<CodePopup code={(data.content)} />} close={setModel} />, 
                 document.body
             )}
         </>

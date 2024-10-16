@@ -41,7 +41,7 @@ export const LinkPage = () => {
   // if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='w-full overflow-auto'>
+    <div className={`w-full mx-auto flex flex-wrap h-fit overflow-auto ${view!="grid"?"flex-col":""}`}>
       {linkData.length > 0 ? (
         linkData.map((x, i) => <Links data={x} deleteLink={handleDelete} view={view} key={i} />)
       ) : (

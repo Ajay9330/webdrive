@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DeleteData, fetchUserData } from '../firebase/fetchDeleteDataServices'; // Adjust the import path as needed
 import { useSelector } from 'react-redux';
 import { getStorage, ref, getBlob, getMetadata, deleteObject } from "firebase/storage";
-import { doc, deleteDoc } from "firebase/firestore"; 
+import { doc, deleteDoc } from "firebase/firestore";
 import { db } from '../firebase/firebaseConfig'; // Ensure you import your Firestore instance
 
 export const FilesPage = () => {
@@ -68,9 +68,9 @@ export const FilesPage = () => {
   };
 
   const handleDelete = async (filePath, docId) => {
-    
+
     try {
-      await DeleteData(filePath,'files',docId);
+      await DeleteData(filePath, 'files', docId);
       setFiles(prevFiles => prevFiles.filter(file => file.id !== docId));
       alert("File deleted successfully.");
     } catch (error) {
@@ -100,29 +100,34 @@ export const FilesPage = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Files Page</h1>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {files.map(file => (
-          <div key={file.id} className="bg-gray-800 p-4 rounded-lg shadow-md">
+          <div key={file.id} className="bg-zinc-900 p-4 rounded-lg shadow-md">
             <div className="mb-2">
               <strong className="text-white">Title:</strong> {file.title}
             </div>
             <div className="mb-4">
               <strong className="text-white">Created At:</strong> {formatDate(file.createdAt)}
             </div>
-            <button 
+            <div className='flex justify-around'>
+            <button
               onClick={() => handleDownload(file.url)}
-              className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition mb-2"
+              className=" bg-blue-500 text-white p-1   rounded hover:bg-blue-600 transition "
             >
-              Download
-            </button>
-            <button 
+              <span class="material-symbols-outlined">
+                download
+              </span>            </button>
+            <button
               onClick={() => handleDelete(file.url, file.id)}
-              className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
+              className="h-fit w-fit bg-red-500 p-1 text-white rounded hover:bg-red-600 transition"
             >
-              Delete
+              <span class="material-symbols-outlined">
+                delete
+              </span>
             </button>
+            </div>
+           
           </div>
         ))}
       </div>
