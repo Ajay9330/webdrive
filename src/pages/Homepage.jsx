@@ -15,7 +15,7 @@ const Homepage = () => {
         <section className="bg-gradient-to-r animate-border-pulse border-[1px] from-zinc-800 to-gray-800 shadow-md rounded-lg p-6 mb-6 w-full text-center text-white"
       
         >
-          <h1 className=" flex justify-center text-amber-400 gap-4 items-center text-3xl md:text-4xl font-bold mb-4">
+          <h1 className=" flex justify-center flex-col md:flex-row text-amber-400 gap-4 items-center text-3xl md:text-4xl font-bold mb-4">
             Welcome to <NavLink to='/' className='bg-black text-purple-600  p-2 gap-2  rounded-md  font-black hover:shadow-xl flex justify-center items-center'>
                 <img className='w-8' src={logoicon} alt="" />
                 <span className=''>Webdrive!</span>
@@ -24,7 +24,7 @@ const Homepage = () => {
           <p className="mb-4 text-lg text-green-400 font-thick">
             This is a platform where you can manage your codes, files, links, notes, and images seamlessly.
           </p>
-          <p className="mb-4 text-sm  font-thin text-orange-400">
+          <p className="mb-4 text-sm  font-medium text-blue-300">
             Sign up to explore all the features and take control of your digital content.
           </p>
           <div className='flex w-full justify-center gap-4'>
@@ -50,7 +50,7 @@ const Homepage = () => {
                 </NavLink>
               </section>
 }
-        <div className='p-10 flex md:flex-row flex-col w-full gap-12 item-strech'>
+        <div className='md:p-10 mb-5 md:mb-0 flex md:flex-row flex-col w-full gap-5 item-strech'>
           {/* Features Section */}
           <section className=" bg-gradient-to-r from-gray-500 to-gray-700 shadow-md rounded-lg p-6 w-full max-w-3xl text-center text-white">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Features</h2>
