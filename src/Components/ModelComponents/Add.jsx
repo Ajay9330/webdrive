@@ -80,7 +80,7 @@ export default function AddPage() {
               <Component ref={ref} onSubmit={(data) => console.log(data)} />
               <button
                 onClick={() => handleDeleteForm(index)}
-                className='rounded py-1 border border-red-600 hover:bg-red-100 text-red-600'
+                className='rounded py-1 border border-red-600 hover:bg-red-100 text-red-600 material-symbols-outlined'
               >
                 Delete
               </button>

@@ -86,7 +86,7 @@ const AddLinks = forwardRef((_, ref) => {
             </div>
             <button
               onClick={() => handleDeleteLink(index)}
-              className='px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700'
+              className='px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 '
             >
               Delete
             </button>
